@@ -8,7 +8,7 @@
     width="70%"
     top="8vh"
   >
-  <ProductManage :is-show-header="false" ref="productManageRef" ></ProductManage>
+    <ProductManage :is-show-header="false" ref="productManageRef"></ProductManage>
     <template #footer>
       <slot name="footer">
         <el-button @click="cancelDialog">取消</el-button>

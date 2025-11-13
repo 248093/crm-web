@@ -15,20 +15,10 @@
 
       <template #operation="scope">
         <el-button type="primary" link :icon="EditPen" v-hasPermi="['sys:contract:edit']" @click="openDrawer('编辑', scope.row)">编辑</el-button>
-        <el-button 
-          type="success" 
-          link 
-          :icon="Printer" 
-          v-hasPermi="['sys:contract:print']" 
-          @click="handlePrint(scope.row)"
-          class="ml-2"
-        >
-          打印
-        </el-button>
+        <el-button type="success" link :icon="Printer" v-hasPermi="['sys:contract:print']" @click="handlePrint(scope.row)" class="ml-2"> 打印 </el-button>
       </template>
     </ProTable>
     <ContractDialog ref="dialogRef" />
-    
     <!-- 打印模板 -->
     <div id="printContractTemplate" class="print-template">
       <div class="print-container">
@@ -185,7 +175,6 @@ const formatDate = (date: string | number | Date, format = 'YYYY-MM-DD HH:mm:ss'
   if (!date) return '无'
   const d = new Date(date)
   if (isNaN(d.getTime())) return '无效时间'
-  
   const opt: Record<string, string> = {
     'Y+': d.getFullYear().toString(),
     'M+': (d.getMonth() + 1).toString().padStart(2, '0'),
@@ -194,7 +183,6 @@ const formatDate = (date: string | number | Date, format = 'YYYY-MM-DD HH:mm:ss'
     'm+': d.getMinutes().toString().padStart(2, '0'),
     's+': d.getSeconds().toString().padStart(2, '0')
   }
-  
   for (const k in opt) {
     const reg = new RegExp(`(${k})`)
     format = format.replace(reg, opt[k])
@@ -257,9 +245,7 @@ const handlePrint = (row: any) => {
     if (printAmount) printAmount.textContent = `${formatMoney(row.amount)} 元`
     if (printReceivedAmount) printReceivedAmount.textContent = `${formatMoney(row.receivedAmount)} 元`
 
-    const statusItem = Object.values(ContractStatusList).find(
-      item => String(item.value) === String(row.status)
-    )
+    const statusItem = Object.values(ContractStatusList).find((item) => String(item.value) === String(row.status))
     if (printStatus) printStatus.textContent = statusItem?.label || '未知状态'
 
     if (printSignTime) printSignTime.textContent = formatDate(row.signTime)
@@ -272,8 +258,8 @@ const handlePrint = (row: any) => {
 
     // 隐藏页面其他元素（避免干扰打印）
     const otherElements = document.querySelectorAll('.table-box > :not(#printContractTemplate), .el-drawer, .el-dialog, .el-header, .el-footer, .el-menu, .el-toolbar')
-    otherElements.forEach(el => {
-      (el as HTMLElement).style.display = 'none'
+    otherElements.forEach((el) => {
+      ;(el as HTMLElement).style.display = 'none'
     })
 
     // 5. 执行打印（添加print-js的回调双重保险）
@@ -334,7 +320,7 @@ const handlePrint = (row: any) => {
     margin: 0;
     padding: 40px 0;
     background: #fff;
-    font-family: "Microsoft YaHei", sans-serif;
+    font-family: 'Microsoft YaHei', sans-serif;
   }
 
   /* 强制显示模板 */
@@ -345,7 +331,13 @@ const handlePrint = (row: any) => {
 
   /* 精准隐藏其他元素 */
   .table-box > :not(#printContractTemplate),
-  .el-drawer, .el-dialog, .el-header, .el-footer, .el-menu, .el-toolbar, .el-container > :not(.table-box) {
+  .el-drawer,
+  .el-dialog,
+  .el-header,
+  .el-footer,
+  .el-menu,
+  .el-toolbar,
+  .el-container > :not(.table-box) {
     display: none !important;
   }
 
@@ -356,7 +348,8 @@ const handlePrint = (row: any) => {
   }
 
   /* 移除浏览器默认页眉页脚 */
-  body::before, body::after {
+  body::before,
+  body::after {
     content: none !important;
   }
 

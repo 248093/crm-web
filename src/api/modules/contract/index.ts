@@ -3,10 +3,12 @@ import http from '@/api'
 
 export const ContractApi = {
   page: (params: any) => http.post(COMMON_ADMIN_API + '/contract/page', params),
-  saveOrEdit: (params: any) => http.post(COMMON_ADMIN_API + '/contract/saveOrUpdate', params),
-  getContractProduct: (contractId: number) => http.post(
-    COMMON_ADMIN_API + '/contract/getContractProduct',
-    {}, // post 请求体（后端不需要，传空对象）
-    { params: { contractId } } // 查询参数（拼在 URL 上）
-  )
+  saveOrEdit: (params: any) => http.post(COMMON_ADMIN_API + '/contract/saveOrEdit', params),
+  getContractProduct: (contractId: number) =>
+    http.post(
+      COMMON_ADMIN_API + '/contract/getContractProduct',
+      {}, // post 请求体（后端不需要，传空对象）
+      { params: { contractId } } // 查询参数（拼在 URL 上）
+    ),
+  trendData: (params: any) => http.post(COMMON_ADMIN_API + '/contract/getContractTrendData', params)
 }
